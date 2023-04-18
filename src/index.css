@@ -1,13 +1,58 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  font: 1em sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.taskManager {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  border: 1px solid black;
+  
+}
+
+.taskManager .taskManagerHeader {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 30px;
+  align-items: center;
+  background-color: rgb(1, 44, 124);
+
+}
+.taskManagerHeader h1{
+  font-size: 30px;
+}
+
+.taskManagerHeader button {
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 5px;
+  border: 1px solid blue;
+}
+
+.taskManagerHeader button:hover {
+  background-color: rgb(60, 124, 243);
+  cursor: pointer;
+}
+
+.taskManagerBody {
+  padding: 0;
+
+}
+
+.taskManagerBody li {
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  
+}
+
+.taskManagerBody li:nth-child(odd) {
+  background-color: rgb(1, 44, 124);
+}
+
+.taskManagerBody li:nth-child(even) {
+  color: rgb(1, 44, 124);
 }
