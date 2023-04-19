@@ -35,6 +35,10 @@ export default function ManageTasks () {
         setTaskToEdition(data);
     }
 
+    function closeEditModal() {
+        setOpenEdit(false);
+    }
+
     return (
         <>
           <div className="taskManager">
@@ -56,7 +60,7 @@ export default function ManageTasks () {
                 })}
                 </ul>
             </div>
-            {openEdit && <EditTask data={taskToEdition} close={() => setOpenEdit(false)}/>}
+            {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
         </>
     );
 };

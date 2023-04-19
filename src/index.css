@@ -16,7 +16,7 @@
   justify-content: space-between;
   padding: 5px 30px;
   align-items: center;
-  background-color: rgb(1, 44, 124);
+  background-color: rgb(43, 57, 185);
 
 }
 .taskManagerHeader h1{
@@ -54,11 +54,12 @@
 }
 
 .taskManagerBody li:nth-child(odd) {
-  background-color: rgb(1, 44, 124);
+  background-color: rgb(43, 57, 185);
 }
 
 .taskManagerBody li:nth-child(even) {
-  color: rgb(1, 44, 124);
+  color: rgb(43, 57, 185);
+  
 }
 
 .taskManagerBody li button {
