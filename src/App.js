@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ManageTask from "./pages/ManageTask";
+import ManageTasks from "./pages/ManageTasks";
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ManageTask/>}/>
+        <Route path="/" element={<ManageTasks/>}/>
       </Routes>
     </BrowserRouter>
   );

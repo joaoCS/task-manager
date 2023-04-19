@@ -28,6 +28,10 @@
   margin-left: 30px;
   border-radius: 5px;
   border: 1px solid blue;
+  display: flex;
+  align-items: center;
+  color: rgb(1, 1, 129);
+  background-color: yellowgreen;
 }
 
 .taskManagerHeader button:hover {
@@ -55,4 +59,20 @@
 
 .taskManagerBody li:nth-child(even) {
   color: rgb(1, 44, 124);
+}
+
+.taskManagerBody li button {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin: 0px 1px;
+  color: rgb(1, 1, 129);
+  border: 1px solid blue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.taskManagerBody li button:hover {
+  background-color: yellowgreen;
+
 }
