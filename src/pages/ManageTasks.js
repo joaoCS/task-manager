@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { BiBookAdd,BiEditAlt, BiTrash } from 'react-icons/bi';
 
 import EditTask from "./EditTask/EditTask";
+import DeleteTask from "./DeleteTask/DeleteTask";
+import TaskOptions from "../components/TaskOptions/TaskOptions";
 
 
 export default function ManageTasks () {
 
     const [openEdit, setOpenEdit] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [taskToEdition, setTaskToEdition] = useState({});
+    const [taskToDelete, setTaskToDelete] = useState({});
+
 
     let data = [
         {
@@ -35,10 +40,18 @@ export default function ManageTasks () {
         setTaskToEdition(data);
     }
 
+    function openDeleteModal(data) {
+        setOpenDelete(true);
+        setTaskToDelete(data);
+    }    
+
     function closeEditModal() {
         setOpenEdit(false);
     }
 
+    function closeDeleteModal(){
+        setOpenDelete(false);
+    }
     return (
         <>
           <div className="taskManager">
@@ -51,16 +64,23 @@ export default function ManageTasks () {
                     return (
                         <li key={idx}>
                             <span> <strong>Título: </strong> {task.titulo}</span>
-                            <span><strong>Descrição: </strong> {task.descricao}</span>
+                            <span><strong>Descrição: </strong> {task.descricao.slice(0, 10) + "..."}</span>
                             <span><strong>Vencimento: </strong> {task.dataVencimento}</span>
-                            <button onClick={()=> openEditModal(task)}>Editar <BiEditAlt size={20}/></button>
-                            <button>Remover <BiTrash size={20}/></button>
+                            {/* <button onClick={()=> openEditModal(task)}>Editar <BiEditAlt size={20}/></button>
+                            <button>Remover <BiTrash size={20}/></button> */}
+                            <a onClick={()=>{}}>Ver detalhes</a>
+                            &nbsp;&nbsp;
+                            <TaskOptions edit={()=>openEditModal(task)} 
+                                         delete={()=>openDeleteModal(task)} 
+                            />
                         </li>
                     );
                 })}
                 </ul>
             </div>
             {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
+            {openDelete && <DeleteTask data={taskToDelete} close={closeDeleteModal}/>}
+            
         </>
     );
 };

@@ -1,0 +1,18 @@
+.optionsMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(43, 57, 185);
+    color: yellowgreen;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.optionsMenu span {
+    cursor: pointer;
+}
+
+.optionsMenu span:hover {
+    color: rgb(43, 57, 185);
+    background-color: yellowgreen;
+}

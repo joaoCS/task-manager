@@ -3,8 +3,7 @@
 }
 
 .taskManager {
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   width: 600px;
   border: 1px solid black;
   
@@ -53,13 +52,38 @@
   
 }
 
+.taskManagerBody li span {
+  padding-right: 30px;
+}
+
+.taskManagerBody li span strong{
+  font-weight: 600;
+
+}
+
+.taskManagerBody li a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: yellowgreen;
+}
+
 .taskManagerBody li:nth-child(odd) {
   background-color: rgb(43, 57, 185);
 }
 
 .taskManagerBody li:nth-child(even) {
   color: rgb(43, 57, 185);
+}
+
+#optionsIcon {
+  cursor: pointer;
   
+}
+
+#optionsIcon:hover {
+  background-color: yellowgreen;
+  color: white;
+  border-radius: 50px;
 }
 
 .taskManagerBody li button {
