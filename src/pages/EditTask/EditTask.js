@@ -20,9 +20,10 @@ import "./editTask.css";
 export default function EditTask({ close, data }) {
 
     const [startDate, setStartDate] = useState(new Date());
-
+    const [taskData, setTaskData] = useState({});
 
     function whichTitle(){
+        console.log("Estou aqui");
         return (
             data.titulo? "Editar tarefa" : "Nova tarefa"
         );
@@ -53,10 +54,17 @@ export default function EditTask({ close, data }) {
     }
 
     function handleChange(event) {
-
+        const { name, value } = event.target;
+        setTaskData({...taskData, [name]: value});
     }
-    async function save() {
+    async function save(event) {
+        event.preventDefault();
+        if (data.titulo !== undefined) {//editar
+            data.dataVencimento = startDate.getTime(); // fica number
+            
+        }
 
+        console.log(taskData);
     }
 
     return (
@@ -65,11 +73,11 @@ export default function EditTask({ close, data }) {
                 <h1>{whichTitle()}</h1>
                 <span>
                     <label htmlFor="titulo">Título</label>
-                    <input value={data.titulo} id="titulo" name="titulo" type="text" onChange={handleChange}/>
+                    <input defaultValue={data.titulo} id="titulo" name="titulo" type="text" onChange={handleChange}/>
                 </span>
                 <span>
                     <label htmlFor="descricao">Descrição</label>
-                    <textarea value={data.descricao} id="descricao" name="descricao" onChange={handleChange}></textarea>
+                    <textarea defaultValue={data.descricao} id="descricao" name="descricao" onChange={handleChange}></textarea>
 
                 </span>
                 <span>
