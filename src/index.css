@@ -4,7 +4,7 @@
 
 .taskManager {
   margin: auto;
-  width: 600px;
+  width: 800px;
   border: 1px solid black;
   
 }
@@ -73,11 +73,6 @@
 
 .taskManagerBody li:nth-child(even) {
   color: rgb(43, 57, 185);
-}
-
-#optionsIcon {
-  cursor: pointer;
-  
 }
 
 #optionsIcon:hover {

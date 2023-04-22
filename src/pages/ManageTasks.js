@@ -4,6 +4,7 @@ import { BiBookAdd,BiEditAlt, BiTrash } from 'react-icons/bi';
 import EditTask from "./EditTask/EditTask";
 import DeleteTask from "./DeleteTask/DeleteTask";
 import TaskOptions from "../components/TaskOptions/TaskOptions";
+import TaskDetails from "./TaskDetails/TaskDetails";
 
 
 export default function ManageTasks () {
@@ -12,25 +13,30 @@ export default function ManageTasks () {
     const [openDelete, setOpenDelete] = useState(false);
     const [taskToEdition, setTaskToEdition] = useState({});
     const [taskToDelete, setTaskToDelete] = useState({});
+    const [openDetails, setOpenDetails] = useState(false);
+    const [taskDetails, setTaskDetails] = useState({});
 
 
     let data = [
         {
             titulo: "Tomar remedio",
             descricao: "O remédio está no armário.",
-            dataVencimento: new Date().getTime()
+            dataVencimento: new Date().getTime(),
+            concluded: false
         },
 
         {
             titulo: "Ler livro",
             descricao: "Estou no capítulo 5",
-            dataVencimento: new Date().getTime()
+            dataVencimento: new Date().getTime(),
+            concluded: false
         },
 
         {
             titulo: "Fazer caminhada",
             descricao: "Caminhar 40 minutos",
-            dataVencimento: new Date().getTime()
+            dataVencimento: new Date().getTime(),
+            concluded: false
         }
 
     ];
@@ -52,6 +58,19 @@ export default function ManageTasks () {
     function closeDeleteModal(){
         setOpenDelete(false);
     }
+
+    async function setTaskStatus(event, task) {
+
+    }
+
+    function seeTaskDetails(task) {
+        setOpenDetails(true);
+        setTaskDetails(task);
+    }
+
+    function closeDetailsModal() {
+        setOpenDetails(false);
+    }
     return (
         <>
           <div className="taskManager">
@@ -68,10 +87,14 @@ export default function ManageTasks () {
                             <span><strong>Vencimento: </strong> {task.dataVencimento}</span>
                             {/* <button onClick={()=> openEditModal(task)}>Editar <BiEditAlt size={20}/></button>
                             <button>Remover <BiTrash size={20}/></button> */}
-                            <a onClick={()=>{}}>Ver detalhes</a>
+                            <span><strong>Status: </strong> {task.concluded? "Concluída" : "Pendente"}</span>
+                            <span>
+                                <input type="checkbox" name="status" id="status" onChange={(event)=>setTaskStatus(event, task)}/>
+                            </span>
+                            <a onClick={()=>{seeTaskDetails(task)}}>Ver detalhes</a>
                             &nbsp;&nbsp;
                             <TaskOptions edit={()=>openEditModal(task)} 
-                                         delete={()=>openDeleteModal(task)} 
+                                         delete={()=>openDeleteModal(task)}
                             />
                         </li>
                     );
@@ -80,7 +103,7 @@ export default function ManageTasks () {
             </div>
             {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
             {openDelete && <DeleteTask data={taskToDelete} close={closeDeleteModal}/>}
-            
+            {openDetails && <TaskDetails data={taskDetails} close={closeDetailsModal}/>}
         </>
     );
 };

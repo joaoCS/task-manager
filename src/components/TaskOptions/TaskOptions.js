@@ -10,7 +10,7 @@ export default function TaskOptions(props) {
         <div>
             <SlOptionsVertical 
                 id="optionsIcon" 
-                size={30}
+                size={20}
                 onMouseOver={()=>{setMenuShown(true)}}
             />
             {menuShown && (
