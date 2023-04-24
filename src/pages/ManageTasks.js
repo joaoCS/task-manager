@@ -5,7 +5,8 @@ import EditTask from "./EditTask/EditTask";
 import DeleteTask from "./DeleteTask/DeleteTask";
 import TaskOptions from "../components/TaskOptions/TaskOptions";
 import TaskDetails from "./TaskDetails/TaskDetails";
-
+import api from "../resouces/api";
+import moment from "moment";
 
 export default function ManageTasks () {
 
@@ -15,31 +16,28 @@ export default function ManageTasks () {
     const [taskToDelete, setTaskToDelete] = useState({});
     const [openDetails, setOpenDetails] = useState(false);
     const [taskDetails, setTaskDetails] = useState({});
+    const [tasks, setTasks] = useState([]);
+    const [formattedTasks, setFormattedTasks] = useState([]);
 
+    
+    async function fetchTasks() {
+        const response = await api.get("/tasks");
 
-    let data = [
-        {
-            titulo: "Tomar remedio",
-            descricao: "O remédio está no armário.",
-            dataVencimento: new Date().getTime(),
-            concluded: false
-        },
-
-        {
-            titulo: "Ler livro",
-            descricao: "Estou no capítulo 5",
-            dataVencimento: new Date().getTime(),
-            concluded: false
-        },
-
-        {
-            titulo: "Fazer caminhada",
-            descricao: "Caminhar 40 minutos",
-            dataVencimento: new Date().getTime(),
-            concluded: false
+        let ft = [];
+        
+        for (let index = 0; index < response.data.length; index++) {
+            
+            let dataVencimentoFormatada = moment(response.data[index].dataVencimento).format("DD/MM/YYYY HH:mm:ss");
+            ft.push({ ...response.data[index], dataVencimentoFormatada });
         }
 
-    ];
+        setTasks(ft);
+    }
+
+
+    useEffect(()=>{
+        fetchTasks();
+    }, []);
 
     function openEditModal(data){
         setOpenEdit(true);
@@ -53,6 +51,7 @@ export default function ManageTasks () {
 
     function closeEditModal() {
         setOpenEdit(false);
+        fetchTasks();
     }
 
     function closeDeleteModal(){
@@ -79,12 +78,12 @@ export default function ManageTasks () {
                     <button onClick={()=> openEditModal({})}>Nova tarefa &nbsp;<BiBookAdd size={20} /> </button>
                 </div>
                 <ul className="taskManagerBody">
-                {data.map((task, idx) => {
+                {tasks.map((task, idx) => {
                     return (
                         <li key={idx}>
                             <span> <strong>Título: </strong> {task.titulo}</span>
-                            <span><strong>Descrição: </strong> {task.descricao.slice(0, 10) + "..."}</span>
-                            <span><strong>Vencimento: </strong> {task.dataVencimento}</span>
+                            <span><strong>Descrição: </strong> {task.descricao?.slice(0, 10) + "..."}</span>
+                            <span><strong>Vencimento: </strong> {task.dataVencimentoFormatada}</span>
                             {/* <button onClick={()=> openEditModal(task)}>Editar <BiEditAlt size={20}/></button>
                             <button>Remover <BiTrash size={20}/></button> */}
                             <span><strong>Status: </strong> {task.concluded? "Concluída" : "Pendente"}</span>

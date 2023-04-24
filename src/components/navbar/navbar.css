@@ -1,0 +1,26 @@
+.navbar {
+    background-color: yellowgreen;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.navbar span {
+    font-weight: 600;
+    font-size: 30px;
+    padding-left: 20px;
+    
+}
+
+.navbar span a {
+    color: rgb(43, 57, 185);
+    text-decoration: none;
+}
+
+.navbar div a {
+    color: rgb(43, 57, 185);
+    text-decoration: none;
+    font-size: 20px;
+    padding: 0px 5px;
+}

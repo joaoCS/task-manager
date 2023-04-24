@@ -73,6 +73,7 @@ export default function EditTask({ close, data }) {
         else {
             
         }
+        close();
     }
 
     return (

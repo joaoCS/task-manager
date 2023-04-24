@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TaskOptions from "../../components/TaskOptions/TaskOptions";
 import moment from "moment";
 import "./taskDetails.css";
 
@@ -8,7 +7,7 @@ export default function TaskDetails({data, close}){
     const [dataVencimento, setDataVencimento] = useState("");
 
     useEffect(()=> {
-        setDataVencimento(moment(data.dataVencimento).format("DD/MM/YYYY hh:mm:ss"));
+        setDataVencimento(moment(data.dataVencimento).format("DD/MM/YYYY HH:mm:ss"));
         
     }, []);
 
