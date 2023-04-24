@@ -4,6 +4,7 @@ import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
 import { type } from "@testing-library/user-event/dist/type";
 import "react-datepicker/dist/react-datepicker.css";
+import api from "../../resouces/api";
 
 import "./editTask.css";
 
@@ -21,56 +22,63 @@ export default function EditTask({ close, data }) {
 
     const [startDate, setStartDate] = useState(new Date());
     const [taskData, setTaskData] = useState({});
+    const [titulo, setTitulo] = useState("");
 
-    function whichTitle(){
-        console.log("Estou aqui");
-        return (
-            data.titulo? "Editar tarefa" : "Nova tarefa"
-        );
-    }
 
     useEffect(()=> {
         registerLocale('pt-BR', ptBR);
-        if(data.titulo !== undefined ) {
-
+        if(data.titulo !== undefined ) {// editar
+            setTitulo("Editar Tarefa");
             setStartDate(new Date(data.dataVencimento));
-            console.log(startDate);
-            console.log(typeof(startDate));
+            setTaskData({ 
+                titulo: data.titulo,
+                descricao: data.descricao, 
+                dataVencimento: startDate.getTime(), 
+                concluded: data.concluded
+            });
         }
+        else
+            setTitulo("Nova Tarefa");
     }, []);
 
 
     function handleDate(date) {
-        console.log(typeof(date));
-
-        let d = Date.parse(date);
-        console.log(d);
-        console.log(moment(d).format("DD/MM/YYYY hh:mm:ss"));
 
         setStartDate(date);
 
-        let novaData = Date(d);
-        console.log(novaData);
     }
 
     function handleChange(event) {
         const { name, value } = event.target;
-        setTaskData({...taskData, [name]: value});
+
+        setTaskData({...taskData, [name]: value, dataVencimento: startDate.getTime(), status: false});
     }
+
     async function save(event) {
         event.preventDefault();
-        if (data.titulo !== undefined) {//editar
-            data.dataVencimento = startDate.getTime(); // fica number
+        if(taskData.titulo === "" || taskData.titulo === undefined) {
+            alert("Insira um título!");
+            return;
+        }
+        if (titulo === "Nova Tarefa") {
+            try {
+                const response = await api.post("/tasks/create", taskData);
+
+                alert(response.data.message);
+            } 
+            catch (err) {
+                alert(err.response.data.message);
+            }
+        }
+        else {
             
         }
-
-        console.log(taskData);
     }
 
     return (
         <div className="editar">
             <form>
-                <h1>{whichTitle()}</h1>
+                <h1>{titulo}</h1>
                 <span>
                     <label htmlFor="titulo">Título</label>
                     <input defaultValue={data.titulo} id="titulo" name="titulo" type="text" onChange={handleChange}/>
