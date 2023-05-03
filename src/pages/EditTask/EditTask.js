@@ -4,7 +4,7 @@ import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
 import { type } from "@testing-library/user-event/dist/type";
 import "react-datepicker/dist/react-datepicker.css";
-import api from "../../resouces/api";
+import api from "../../resources/api";
 
 import "./editTask.css";
 

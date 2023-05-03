@@ -1,0 +1,59 @@
+.cadastro {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	width: fit-content;
+	height: fit-content;
+
+
+	margin: auto;
+}
+
+
+.cadastro form {
+	display: flex;
+	flex-direction: column;
+
+	background-color: rgb(43, 57, 185);
+	padding: 30px;
+	border-radius: 5px;
+}
+
+.cadastro form span{
+	display: flex;
+	flex-direction: column;
+	padding: 5px 0;
+}
+
+.cadastro form label {
+	color: yellowgreen;
+	font-weight: 600;
+}
+
+.cadastro form span input {
+	height: 30px;
+	border-radius: 5px;
+	border: 1px solid rgb(43, 57, 185);
+}
+
+.cadastro form button {
+	background-color: yellowgreen;
+	border: 1px solid rgb(43, 57, 185);
+	border-radius: 5px;
+	height: 40px;
+	margin-top: 20px;
+	cursor: pointer;
+	font-weight: 600;
+	color: rgb(43, 57, 185);;
+}
+
+.cadastro form button:hover {
+	background-color: green;
+}
+
+.cadastro h1 {
+	color: rgb(43, 57, 185);	
+}

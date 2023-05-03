@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./cadastro.css";
+
 export default function Cadastro() {
 
     function handleChange() {
@@ -11,7 +13,7 @@ export default function Cadastro() {
     }
 
     return (
-        <div>
+        <div className="cadastro">
             <h1>Cadastro</h1>
             <form onSubmit={handleSubmit}>
                 <span>

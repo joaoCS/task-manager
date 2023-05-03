@@ -5,7 +5,7 @@ import EditTask from "./EditTask/EditTask";
 import DeleteTask from "./DeleteTask/DeleteTask";
 import TaskOptions from "../components/TaskOptions/TaskOptions";
 import TaskDetails from "./TaskDetails/TaskDetails";
-import api from "../resouces/api";
+import api from "../resources/api";
 import moment from "moment";
 
 export default function ManageTasks () {
