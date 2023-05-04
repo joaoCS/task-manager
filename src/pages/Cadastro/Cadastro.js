@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./cadastro.css";
 
+import api from "../../resources/api.js";
+
+import { useNavigate } from "react-router-dom";
+
 export default function Cadastro() {
 
-    function handleChange() {
+    const [userData, setUserData] = useState({});
 
+    const navigate = useNavigate();
+    function handleChange(event) {
+        const { name, value } = event.target;
+
+
+        setUserData({...userData, [name]: value});
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
+
+        const response = await api.post("/auth/createAdmin", userData);
+        
+        alert(response.data.message);
+
+        navigate("/login");
     }
 
     return (
