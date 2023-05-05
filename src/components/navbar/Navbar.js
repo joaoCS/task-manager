@@ -6,6 +6,7 @@ import { selectUser, addUser } from "./userSlice";
 import api from "../../resources/api";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import EditCadastro from "../../pages/EditCadastro/EditCadastro.js";
 
 export default function Navbar() {
 
@@ -13,7 +14,8 @@ export default function Navbar() {
     const [cookies, setCookies] = useCookies(["access_token"]);
     const dispatch = useDispatch();
     const [userName, setUserName] = useState("");
-
+    const [showAccountMenu, setShowAccountMenu] = useState(false);
+    const [showEditCadastro, setShowEditCadastro] = useState(false);
     const navigate = useNavigate();
 
     let user = useSelector(selectUser);
@@ -46,14 +48,17 @@ export default function Navbar() {
     function logout() {
         setCookies("access_token", "");
         window.localStorage.removeItem("userId");
+        dispatch(addUser(""));
         navigate("/login");
+
     }
 
 
     return (
+        <>
         <div className="navbar">
             <span><Link to="/">Gerenciador de Tarefas</Link></span>
-            <span>{userName}</span>
+            
             { !cookies.access_token &&
              <div>
                 <Link to="/cadastro">Cadastrar-se</Link>
@@ -63,9 +68,26 @@ export default function Navbar() {
             }
             {cookies.access_token && 
                 <div>
-                    <a href="" onClick={logout}>Sair</a>
+                    <a onMouseOver={()=> setShowAccountMenu(true)}>
+                        {userName}
+                        {showAccountMenu && 
+                            <div onMouseLeave={() => setShowAccountMenu(false)}>
+                                <a onClick={() => setShowEditCadastro(true)}>Editar conta</a>
+                            </div>
+                        }
+                    </a>
+                    <a onClick={logout}>Sair</a>
                 </div>
             }
+
+
         </div>
+        { showEditCadastro && 
+            <EditCadastro 
+                close={()=>setShowEditCadastro(false)}
+            >
+            </EditCadastro>
+        }
+        </>
     );
 };

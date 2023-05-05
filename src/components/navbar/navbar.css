@@ -18,9 +18,33 @@
     text-decoration: none;
 }
 
+.navbar div {
+    display: flex;
+}
+
 .navbar div a {
     color: rgb(43, 57, 185);
     text-decoration: none;
     font-size: 20px;
     padding: 0px 5px;
+    cursor: pointer;
+}
+
+.navbar div a:hover {
+    background-color: rgba(43, 57, 185, 0.4);
+}
+
+.navbar div a div {
+    position: absolute;
+    background-color: rgb(43, 57, 185);
+    border-radius: 5px;
+}
+
+.navbar div a div a {
+    color: yellowgreen;   
+}
+
+.navbar div a div a:hover {
+    color: rgba(43, 57, 185);   
+    background-color: yellowgreen;
 }
