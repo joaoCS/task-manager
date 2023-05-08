@@ -5,6 +5,7 @@ import ptBR from "date-fns/locale/pt-BR";
 import { type } from "@testing-library/user-event/dist/type";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../../resources/api";
+import { useCookies } from "react-cookie";
 
 import "./editTask.css";
 
@@ -23,7 +24,7 @@ export default function EditTask({ close, data }) {
     const [startDate, setStartDate] = useState(new Date());
     const [taskData, setTaskData] = useState({});
     const [titulo, setTitulo] = useState("");
-
+    const [cookies, setCookies] = useCookies(["access_token"]);
 
     useEffect(()=> {
         registerLocale('pt-BR', ptBR);
@@ -71,7 +72,14 @@ export default function EditTask({ close, data }) {
             }
         }
         else {
-            
+            try {
+                const response = await api.put("/tasks/edit", taskData);
+
+                alert(response.data.message);
+            } 
+            catch (err) {
+                alert(err.response.data.message);
+            }
         }
         close();
     }
