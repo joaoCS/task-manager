@@ -3,6 +3,7 @@ import ManageTasks from "./pages/ManageTasks";
 import Navbar from "./components/navbar/Navbar";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import Login from "./pages/Login/Login";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/cadastro" element={<Cadastro/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/" element={<ManageTasks/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
       </Routes>
     </BrowserRouter>
   );

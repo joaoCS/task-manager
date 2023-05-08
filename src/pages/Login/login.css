@@ -50,3 +50,10 @@
 .login form button:hover {
 	background-color: green;
 }
+
+.login form a {
+	color: yellowgreen;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}

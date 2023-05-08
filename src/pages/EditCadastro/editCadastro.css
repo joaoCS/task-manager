@@ -29,10 +29,44 @@
 .editCadastro div form {
 	display: flex;
 	flex-direction: column;
+	padding: 20px;
 }
 
 .editCadastro div form span { 
 	display: flex;
 	flex-direction: column;
+	color: yellowgreen;
 	
+}
+
+.editCadastro div form span label {
+	font-weight: bold;
+} 
+
+.editCadastro div form span input {
+	height: 30px;
+	border-radius: 5px;
+	font-size: 16px;
+	border: 1px solid blue;
+
+} 
+
+.editCadastro div form button {
+	background-color: yellowgreen;
+	height: 30px;
+	border: 1px solid yellowgreen;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+.editCadastro div form button:hover {
+	background-color: rgb(184, 190, 170);
+}
+
+.editCadastro div h2{
+	color: yellowgreen;
+	margin-left: auto;
+	margin-right: auto;
 }

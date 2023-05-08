@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "./login.css";
 
 import api from "../../resources/api.js";
@@ -7,7 +6,7 @@ import api from "../../resources/api.js";
 import { addUser } from "../../components/navbar/userSlice";
 import { useDispatch } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 export default function Login(){
@@ -52,6 +51,7 @@ export default function Login(){
                 <input type="password" name="password" id="password" onChange={handleChange}/>
 
                 <button type="submit" >Entrar</button>
+                <Link to="/forgot-password">Esqueci a senha</Link>
             </form>
         </div>
     );
