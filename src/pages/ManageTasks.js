@@ -7,6 +7,7 @@ import TaskOptions from "../components/TaskOptions/TaskOptions";
 import TaskDetails from "./TaskDetails/TaskDetails";
 import api from "../resources/api";
 import moment from "moment";
+import { useCookies } from "react-cookie";
 
 export default function ManageTasks () {
 
@@ -18,10 +19,15 @@ export default function ManageTasks () {
     const [taskDetails, setTaskDetails] = useState({});
     const [tasks, setTasks] = useState([]);
     const [formattedTasks, setFormattedTasks] = useState([]);
-
+    const [cookies, setCookies] = useCookies(["access_token"]);
     
     async function fetchTasks() {
-        const response = await api.get("/tasks");
+        const response = await api.get("/tasks", {
+            headers: {
+                authorization: cookies.access_token,
+                userid: window.localStorage.getItem("userId")
+            }
+        });
 
         let ft = [];
         

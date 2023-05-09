@@ -31,7 +31,9 @@ export default function EditTask({ close, data }) {
         if(data.titulo !== undefined ) {// editar
             setTitulo("Editar Tarefa");
             setStartDate(new Date(data.dataVencimento));
+            
             setTaskData({ 
+                _id: data._id,
                 titulo: data.titulo,
                 descricao: data.descricao, 
                 dataVencimento: startDate.getTime(), 
@@ -52,34 +54,61 @@ export default function EditTask({ close, data }) {
     function handleChange(event) {
         const { name, value } = event.target;
 
-        setTaskData({...taskData, [name]: value, dataVencimento: startDate.getTime(), status: false});
+        setTaskData({
+                ...taskData, 
+                [name]: value,
+                dataVencimento: startDate.getTime(), 
+                concluded: false, 
+        });
     }
 
     async function save(event) {
         event.preventDefault();
-        if(taskData.titulo === "" || taskData.titulo === undefined) {
-            alert("Insira um título!");
-            return;
-        }
-        if (titulo === "Nova Tarefa") {
-            try {
-                const response = await api.post("/tasks/create", taskData);
+       if(cookies.access_token) {     
+            let dadosTarefa = taskData;
+            dadosTarefa = { ...dadosTarefa,  userId: window.localStorage.getItem("userId") };
 
-                alert(response.data.message);
-            } 
-            catch (err) {
-                alert(err.response.data.message);
+            if(taskData.titulo === "" || taskData.titulo === undefined) {
+                alert("Insira um título!");
+                return;
+            }
+
+            if (titulo === "Nova Tarefa") {
+                try {
+
+                    const response = await api.post("/tasks/create", dadosTarefa, {
+                        headers: {
+                            authorization: cookies.access_token
+                        }
+                    });
+
+                    alert(response.data.message);
+                } 
+                catch (err) {
+                    alert(err.response.data.message);
+                }
+            }
+            else {
+                try {
+
+                    console.log(dadosTarefa);
+
+
+                    const response = await api.put("/tasks/edit", dadosTarefa, {
+                        headers: {
+                            authorization: cookies.access_token
+                        }
+                    });
+
+                    alert(response.data.message);
+                } 
+                catch (err) {
+                    alert(err.response.data.message);
+                }
             }
         }
         else {
-            try {
-                const response = await api.put("/tasks/edit", taskData);
-
-                alert(response.data.message);
-            } 
-            catch (err) {
-                alert(err.response.data.message);
-            }
+            alert("Faça login!");
         }
         close();
     }
