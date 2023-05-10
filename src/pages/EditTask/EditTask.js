@@ -25,9 +25,10 @@ export default function EditTask({ close, data }) {
     const [taskData, setTaskData] = useState({});
     const [titulo, setTitulo] = useState("");
     const [cookies, setCookies] = useCookies(["access_token"]);
+    
+    registerLocale('pt-BR', ptBR);
 
     useEffect(()=> {
-        registerLocale('pt-BR', ptBR);
         if(data.titulo !== undefined ) {// editar
             setTitulo("Editar Tarefa");
             setStartDate(new Date(data.dataVencimento));
@@ -48,6 +49,11 @@ export default function EditTask({ close, data }) {
     function handleDate(date) {
 
         setStartDate(date);
+       
+        setTaskData({
+            ...taskData, 
+            dataVencimento: startDate.getTime(),  
+        });
 
     }
 
@@ -66,7 +72,13 @@ export default function EditTask({ close, data }) {
         event.preventDefault();
        if(cookies.access_token) {     
             let dadosTarefa = taskData;
-            dadosTarefa = { ...dadosTarefa,  userId: window.localStorage.getItem("userId") };
+            
+            dadosTarefa = { 
+                        ...dadosTarefa,  
+                        userId: window.localStorage.getItem("userId"),
+                        dataVencimento: startDate.getTime(), 
+                        
+            };
 
             if(taskData.titulo === "" || taskData.titulo === undefined) {
                 alert("Insira um título!");
@@ -90,9 +102,6 @@ export default function EditTask({ close, data }) {
             }
             else {
                 try {
-
-                    console.log(dadosTarefa);
-
 
                     const response = await api.put("/tasks/edit", dadosTarefa, {
                         headers: {
@@ -128,7 +137,19 @@ export default function EditTask({ close, data }) {
                 </span>
                 <span>
                     <label htmlFor="dataVencimento">Data de vencimento</label>
-                    <DatePicker name="dataVencimento" id="dataVencimento" selected={startDate} onChange={handleDate} showTimeSelect dateFormat="Pp" locale={ptBR}/>
+                    <DatePicker
+                         showIcon 
+                         name="dataVencimento" 
+                         id="dataVencimento" 
+                         selected={startDate}
+                         onChange={handleDate} 
+                         showTimeSelect 
+                         dateFormat="Pp" 
+                         timeFormat="p"
+                         locale="pt-BR"
+                         timeInputLabel="Horas:"
+                         timeIntervals={15}
+                    />
                 </span>
                 <span className="closesave">
                     <button onClick={save}>Salvar</button>

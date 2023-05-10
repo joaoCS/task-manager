@@ -30,7 +30,6 @@ export default function ManageTasks () {
         });
 
         let ft = [];
-        
         for (let index = 0; index < response.data.length; index++) {
             
             let dataVencimentoFormatada = moment(response.data[index].dataVencimento).format("DD/MM/YYYY HH:mm:ss");
