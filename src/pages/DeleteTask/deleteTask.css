@@ -27,7 +27,7 @@
 }
 
 .deleteTask div h1 {
-    color: white;
+    color: yellowgreen;
     font-size: 30px;
 }
 
@@ -39,5 +39,14 @@
 
 .deleteTask div span button {
     background-color: yellowgreen;
-    
+    border: 1px solid yellowgreen;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    color:rgb(43, 57, 185);
+    font-weight: bold;
+}
+
+.deleteTask div span button:hover {
+    background-color: rgb(208, 218, 188);;
 }

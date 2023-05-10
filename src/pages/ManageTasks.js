@@ -62,6 +62,7 @@ export default function ManageTasks () {
 
     function closeDeleteModal(){
         setOpenDelete(false);
+        fetchTasks();
     }
 
     async function setTaskStatus(event, task) {
