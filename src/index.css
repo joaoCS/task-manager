@@ -71,6 +71,10 @@
   background-color: rgb(43, 57, 185);
 }
 
+.taskManagerBody li:nth-child(odd).expired {
+  background-color: rgb(248, 34, 34);
+}
+
 .taskManagerBody li:nth-child(even) {
   color: rgb(43, 57, 185);
 }
@@ -95,4 +99,8 @@
 .taskManagerBody li button:hover {
   background-color: yellowgreen;
 
+}
+
+.expired {
+  background-color: rgb(250, 129, 129);
 }

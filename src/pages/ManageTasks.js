@@ -9,6 +9,7 @@ import api from "../resources/api";
 import moment from "moment";
 import { useCookies } from "react-cookie";
 
+
 export default function ManageTasks () {
 
     const [openEdit, setOpenEdit] = useState(false);
@@ -21,6 +22,7 @@ export default function ManageTasks () {
     const [formattedTasks, setFormattedTasks] = useState([]);
     const [cookies, setCookies] = useCookies(["access_token"]);
     
+
     async function fetchTasks() {
         const response = await api.get("/tasks", {
             headers: {
@@ -30,18 +32,45 @@ export default function ManageTasks () {
         });
 
         let ft = [];
-        for (let index = 0; index < response.data.length; index++) {
+
+
+        
+        for (let index = 0; index < response.data.length; index++) {    
             
             let dataVencimentoFormatada = moment(response.data[index].dataVencimento).format("DD/MM/YYYY HH:mm:ss");
-            ft.push({ ...response.data[index], dataVencimentoFormatada });
+            ft.push({ 
+                    ...response.data[index], 
+                    dataVencimentoFormatada, 
+                    // interval: setInterval(() => {
+                    //         if(response.data[index].dataVencimento <= Date.now()) {
+                    //             console.log("Prazo de tarefa expirado!");
+                    //         }
+                    // }, 1000)
+            });
+        }
+
+        let timeouts = [];
+        
+        
+        for (let index = 0; index < response.data.length; index++) {    
+            let timeInterval = response.data[index].dataVencimento - Date.now();
+            if(timeInterval <= 0)
+                ft[index].expired = true;
+            else
+                timeouts.push(setTimeout(() => {
+                    ft[index].expired = true;
+                    
+                    window.location.reload(true);
+                }, timeInterval));
         }
 
         setTasks(ft);
+        
     }
 
-
     useEffect(()=>{
-        fetchTasks();
+        if (cookies.access_token)
+            fetchTasks();
     }, []);
 
     function openEditModal(data){
@@ -56,12 +85,12 @@ export default function ManageTasks () {
 
     function closeEditModal() {
         setOpenEdit(false);
-        fetchTasks();
+        window.location.reload(true);
     }
 
     function closeDeleteModal(){
         setOpenDelete(false);
-        fetchTasks();
+        window.location.reload(true);
     }
 
     async function setTaskStatus(event, task) {
@@ -78,7 +107,8 @@ export default function ManageTasks () {
     }
     return (
         <>
-          <div className="taskManager">
+           {cookies.access_token &&
+            <div className="taskManager">
                 <div className="taskManagerHeader">
                     <h1>Gerenciador de tarefas</h1>
                     <button onClick={()=> openEditModal({})}>Nova tarefa &nbsp;<BiBookAdd size={20} /> </button>
@@ -86,13 +116,14 @@ export default function ManageTasks () {
                 <ul className="taskManagerBody">
                 {tasks.map((task, idx) => {
                     return (
-                        <li key={idx}>
+                        <li key={idx} className={task.expired? "expired": "nonexpired"}>
                             <span> <strong>Título: </strong> {task.titulo}</span>
                             <span><strong>Descrição: </strong> {task.descricao?.slice(0, 10) + "..."}</span>
                             <span><strong>Vencimento: </strong> {task.dataVencimentoFormatada}</span>
                             {/* <button onClick={()=> openEditModal(task)}>Editar <BiEditAlt size={20}/></button>
                             <button>Remover <BiTrash size={20}/></button> */}
                             <span><strong>Status: </strong> {task.concluded? "Concluída" : "Pendente"}</span>
+                            <span>{task.expired && "Tempo expirado"}</span>
                             <span>
                                 <input type="checkbox" name="status" id="status" onChange={(event)=>setTaskStatus(event, task)}/>
                             </span>
@@ -106,6 +137,7 @@ export default function ManageTasks () {
                 })}
                 </ul>
             </div>
+            }
             {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
             {openDelete && <DeleteTask data={taskToDelete} close={closeDeleteModal}/>}
             {openDetails && <TaskDetails data={taskDetails} close={closeDetailsModal}/>}
