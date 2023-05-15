@@ -31,6 +31,8 @@ export default function ManageTasks () {
     const [cookies, setCookies] = useCookies(["access_token"]);
     const [menuFiltrarVisible, setMenuFiltrarVisible] = useState(false);
 
+    let wholeTasksList = [];
+
     async function fetchTasks() {
         const response = await api.get("/tasks", {
             headers: {
@@ -71,12 +73,13 @@ export default function ManageTasks () {
         }
 
         setTasks(ft);
-        
+        wholeTasksList = ft;
     }
 
     useEffect(()=>{
         if (cookies.access_token)
             fetchTasks();
+        
     }, []);
 
     function openEditModal(data){
@@ -100,7 +103,6 @@ export default function ManageTasks () {
     }
 
     async function setTaskStatus(event, task) {
-        
         try {
             const response = await api.post("/tasks/concluded", {
                 task,
@@ -119,8 +121,6 @@ export default function ManageTasks () {
         catch(err) {
             alert(err.response.data.message);
         }
-        
-        
     }
 
     function seeTaskDetails(task) {
@@ -133,9 +133,12 @@ export default function ManageTasks () {
     }
     
     async function filterConcluded() {
+        
         await fetchTasks();
 
-        let ts = tasks.filter(task => {
+        
+
+        let ts = wholeTasksList.filter(task => {
             return task.concluded === true;
         });
 
@@ -145,15 +148,15 @@ export default function ManageTasks () {
     async function filterNotConcluded() {
         await fetchTasks();
         
-        let ts = tasks.filter(task => {
+        let ts = wholeTasksList.filter(task => {
             return task.concluded === false;
         });
 
         setTasks(ts);
     }
 
-    function unFilter() {
-        fetchTasks();
+    async function unFilter() {
+        await fetchTasks();
     }
 
     return (
