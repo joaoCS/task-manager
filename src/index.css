@@ -72,7 +72,7 @@
 }
 
 .taskManagerBody li:nth-child(odd).expired {
-  background-color: rgb(248, 34, 34);
+  background-color: rgb(153, 55, 55);
 }
 
 .taskManagerBody li:nth-child(odd).concluded {

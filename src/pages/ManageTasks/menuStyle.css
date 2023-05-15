@@ -1,0 +1,23 @@
+.menuFiltrar {
+    cursor: pointer;
+    color: yellowgreen;
+}
+
+.menuFiltrar div{
+    position: absolute;
+    background-color: rgb(43, 57, 185);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.menuFiltrar div span {
+
+}
+
+.menuFiltrar div span:hover {
+    background-color: yellowgreen;
+    color: rgb(43, 57, 185);
+    
+}

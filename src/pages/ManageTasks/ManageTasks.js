@@ -1,14 +1,22 @@
+/*
+
+- A aplicação deve permitir ao usuário filtrar as tarefas por data de vencimento ou por status (concluída ou não concluída);
+- A aplicação deve permitir ao usuário classificar as tarefas por ordem alfabética ou por ordem de vencimento;
+
+*/
+
+
 import React, { useEffect, useState } from "react";
 import { BiBookAdd,BiEditAlt, BiTrash } from 'react-icons/bi';
 
-import EditTask from "./EditTask/EditTask";
-import DeleteTask from "./DeleteTask/DeleteTask";
-import TaskOptions from "../components/TaskOptions/TaskOptions";
-import TaskDetails from "./TaskDetails/TaskDetails";
-import api from "../resources/api";
+import EditTask from "../EditTask/EditTask";
+import DeleteTask from "../DeleteTask/DeleteTask";
+import TaskOptions from "../../components/TaskOptions/TaskOptions";
+import TaskDetails from "../TaskDetails/TaskDetails";
+import api from "../../resources/api";
 import moment from "moment";
 import { useCookies } from "react-cookie";
-
+import "./menuStyle.css";
 
 export default function ManageTasks () {
 
@@ -21,7 +29,7 @@ export default function ManageTasks () {
     const [tasks, setTasks] = useState([]);
     const [formattedTasks, setFormattedTasks] = useState([]);
     const [cookies, setCookies] = useCookies(["access_token"]);
-    
+    const [menuFiltrarVisible, setMenuFiltrarVisible] = useState(false);
 
     async function fetchTasks() {
         const response = await api.get("/tasks", {
@@ -32,8 +40,6 @@ export default function ManageTasks () {
         });
 
         let ft = [];
-
-
         
         for (let index = 0; index < response.data.length; index++) {    
             
@@ -125,12 +131,53 @@ export default function ManageTasks () {
     function closeDetailsModal() {
         setOpenDetails(false);
     }
+    
+    async function filterConcluded() {
+        await fetchTasks();
+
+        let ts = tasks.filter(task => {
+            return task.concluded === true;
+        });
+
+        setTasks(ts);
+    }
+
+    async function filterNotConcluded() {
+        await fetchTasks();
+        
+        let ts = tasks.filter(task => {
+            return task.concluded === false;
+        });
+
+        setTasks(ts);
+    }
+
+    function unFilter() {
+        fetchTasks();
+    }
+
     return (
         <>
            {cookies.access_token &&
             <div className="taskManager">
                 <div className="taskManagerHeader">
-                    <h1>Gerenciador de tarefas</h1>
+                    <div className="menuFiltrar" onClick={()=>setMenuFiltrarVisible(true)}>
+                        Filtrar
+                        {menuFiltrarVisible &&
+                        <div onMouseLeave={()=>setMenuFiltrarVisible(false)} >
+                            <span>Data</span>
+                            <span onClick={filterConcluded}>
+                                Concluidas
+                            </span>
+                            <span onClick={filterNotConcluded}>
+                                Não concluidas
+                            </span>
+                            <span onClick={unFilter}>
+                                Todas
+                            </span>
+                        </div>
+                        }
+                    </div>
                     <button onClick={()=> openEditModal({})}>Nova tarefa &nbsp;<BiBookAdd size={20} /> </button>
                 </div>
                 <ul className="taskManagerBody">

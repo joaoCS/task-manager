@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ManageTasks from "./pages/ManageTasks";
+import ManageTasks from "./pages/ManageTasks/ManageTasks";
 import Navbar from "./components/navbar/Navbar";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import Login from "./pages/Login/Login";
