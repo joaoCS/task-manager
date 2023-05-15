@@ -60,7 +60,7 @@ export default function ManageTasks () {
                 timeouts.push(setTimeout(() => {
                     ft[index].expired = true;
                     
-                    window.location.reload(true);
+                    fetchTasks();
                 }, timeInterval));
         }
 
@@ -85,16 +85,36 @@ export default function ManageTasks () {
 
     function closeEditModal() {
         setOpenEdit(false);
-        window.location.reload(true);
+        fetchTasks();
     }
 
     function closeDeleteModal(){
         setOpenDelete(false);
-        window.location.reload(true);
+        fetchTasks();
     }
 
     async function setTaskStatus(event, task) {
+        
+        try {
+            const response = await api.post("/tasks/concluded", {
+                task,
+                concluded: event.target.checked,
+                userId: window.localStorage.getItem("userId")
+            }, 
+            {
+                headers: {
+                    authorization: cookies.access_token
+                }
+            });  
 
+            alert(response.data.message);
+            fetchTasks();
+        }
+        catch(err) {
+            alert(err.response.data.message);
+        }
+        
+        
     }
 
     function seeTaskDetails(task) {
@@ -125,7 +145,7 @@ export default function ManageTasks () {
                             <span><strong>Status: </strong> {task.concluded? "Concluída" : "Pendente"}</span>
                             <span>{task.expired && "Tempo expirado"}</span>
                             <span>
-                                <input type="checkbox" name="status" id="status" onChange={(event)=>setTaskStatus(event, task)}/>
+                                <input checked={task.concluded} type="checkbox" name="status" id="status" onChange={(event)=>setTaskStatus(event, task)}/>
                             </span>
                             <a onClick={()=>{seeTaskDetails(task)}}>Ver detalhes</a>
                             &nbsp;&nbsp;
