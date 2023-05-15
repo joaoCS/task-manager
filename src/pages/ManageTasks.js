@@ -136,7 +136,7 @@ export default function ManageTasks () {
                 <ul className="taskManagerBody">
                 {tasks.map((task, idx) => {
                     return (
-                        <li key={idx} className={task.expired? "expired": "nonexpired"}>
+                        <li key={idx} className={task.expired? "expired": task.concluded? "concluded" : ""}>
                             <span> <strong>Título: </strong> {task.titulo}</span>
                             <span><strong>Descrição: </strong> {task.descricao?.slice(0, 10) + "..."}</span>
                             <span><strong>Vencimento: </strong> {task.dataVencimentoFormatada}</span>
