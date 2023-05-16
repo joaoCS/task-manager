@@ -1,0 +1,49 @@
+.dateFilter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#panel { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgb(43, 57, 185);
+
+    width: 350px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+#panel h3 { 
+    color: yellowgreen;
+}
+
+#ok {
+    background-color: yellowgreen;
+    height: 30px;
+    border: 1px solid yellowgreen;
+    border-radius: 5px;
+    color: rgb(43, 57, 185);
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#dataVencimento {
+    width: 300px;
+}
+
+#dataVencimento2 {
+    width: 300px;
+}
