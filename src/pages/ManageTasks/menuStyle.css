@@ -1,9 +1,9 @@
-.menuFiltrar {
+.menu {
     cursor: pointer;
     color: yellowgreen;
 }
 
-.menuFiltrar div{
+.menu div{
     position: absolute;
     background-color: rgb(43, 57, 185);
     display: flex;
@@ -12,12 +12,19 @@
     padding: 5px;
 }
 
-.menuFiltrar div span {
+.menu div span {
 
 }
 
-.menuFiltrar div span:hover {
+.menu div span:hover {
     background-color: yellowgreen;
     color: rgb(43, 57, 185);
     
+}
+
+.invertOrder {
+    display: flex;
+    align-items: end;
+    color: yellowgreen;
+    cursor: pointer;
 }

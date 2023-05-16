@@ -7,7 +7,8 @@
 
 
 import React, { useEffect, useState } from "react";
-import { BiBookAdd,BiEditAlt, BiTrash } from 'react-icons/bi';
+import { BiBookAdd,BiEditAlt, BiTrash, BiSortAlt2 } from 'react-icons/bi';
+
 
 import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
@@ -32,7 +33,7 @@ export default function ManageTasks () {
     const [cookies, setCookies] = useCookies(["access_token"]);
     const [menuFiltrarVisible, setMenuFiltrarVisible] = useState(false);
     const [openDateFilterModal, setOpenDateFilterModal] = useState(false);
-
+    const [menuOrdenarVisible, setMenuOrdenarVisible] = useState(false)
 
     let wholeTasksList = [];
 
@@ -183,17 +184,42 @@ export default function ManageTasks () {
         filterByDate(data);
     }
 
+    function sortByDate() {
+        let ts = tasks;
+        let sortedTs = [...ts].sort(function (a, b) {
+            return a.dataVencimento - b.dataVencimento;
+        });
+        
+        setTasks(sortedTs);
+    }
+
+    function sortAlphabetically() {
+        let ts = tasks;
+        let sortedTs = [...ts].sort(function (a, b) {
+            return a.titulo.localeCompare(b.titulo);
+        });
+ 
+        setTasks(sortedTs);
+    }
+
+    function invertOrder() {
+        let ts = tasks;
+        let reverseArray = [...ts].reverse();
+        
+        setTasks(reverseArray);
+    }
+
     return (
         <>
            {cookies.access_token &&
             <div className="taskManager">
                 <div className="taskManagerHeader">
-                    <div className="menuFiltrar" onClick={()=>setMenuFiltrarVisible(true)}>
+                    <div className="menu" onClick={()=>setMenuFiltrarVisible(true)}>
                         Filtrar
                         {menuFiltrarVisible &&
                         <div onMouseLeave={()=>setMenuFiltrarVisible(false)} >
                             <span onClick={()=>setOpenDateFilterModal(true)}>
-                                Por data
+                                Por data de vencimento
                             </span>
                             <span onClick={filterConcluded}>
                                 Concluidas
@@ -206,6 +232,24 @@ export default function ManageTasks () {
                             </span>
                         </div>
                         }
+                    </div>
+                    <div className="menu" onClick={()=>setMenuOrdenarVisible(true)}>
+                        Ordenar
+                        {menuOrdenarVisible &&
+                        <div onMouseLeave={()=>setMenuOrdenarVisible(false)} >
+                            <span onClick={sortByDate}>
+                                Por data de vencimento
+                            </span>
+                            <span onClick={sortAlphabetically}>
+                                Por ordem alfabética
+                            </span>
+                            
+                        </div>
+                        }
+                    </div>
+                    <div className="invertOrder" onClick={invertOrder}>
+                        Inverter ordem
+                        <BiSortAlt2 size={20} color="yellowgreen" />
                     </div>
                     <button onClick={()=> openEditModal({})}>Nova tarefa &nbsp;<BiBookAdd size={20} /> </button>
                 </div>
