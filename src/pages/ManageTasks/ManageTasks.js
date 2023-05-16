@@ -17,6 +17,7 @@ import api from "../../resources/api";
 import moment from "moment";
 import { useCookies } from "react-cookie";
 import "./menuStyle.css";
+import DateFilter from "../DateFilter/DateFilter";
 
 export default function ManageTasks () {
 
@@ -30,6 +31,8 @@ export default function ManageTasks () {
     const [formattedTasks, setFormattedTasks] = useState([]);
     const [cookies, setCookies] = useCookies(["access_token"]);
     const [menuFiltrarVisible, setMenuFiltrarVisible] = useState(false);
+    const [openDateFilterModal, setOpenDateFilterModal] = useState(false);
+
 
     let wholeTasksList = [];
 
@@ -159,6 +162,27 @@ export default function ManageTasks () {
         await fetchTasks();
     }
 
+    async function filterByDate(data) {
+        await fetchTasks();
+        
+        let ts = wholeTasksList.filter(task => {
+            return task.dataVencimento >= data.initialDate && task.dataVencimento < data.finalDate;
+        });
+
+        setTasks(ts);
+    }
+
+    function closeDateFilterModal(data) {
+        setOpenDateFilterModal(false);
+
+        if(data.initialDate >= data.finalDate) {
+            alert("A data inicial está antes da final");
+            return;
+        }
+
+        filterByDate(data);
+    }
+
     return (
         <>
            {cookies.access_token &&
@@ -168,7 +192,9 @@ export default function ManageTasks () {
                         Filtrar
                         {menuFiltrarVisible &&
                         <div onMouseLeave={()=>setMenuFiltrarVisible(false)} >
-                            <span>Data</span>
+                            <span onClick={()=>setOpenDateFilterModal(true)}>
+                                Por data
+                            </span>
                             <span onClick={filterConcluded}>
                                 Concluidas
                             </span>
@@ -211,6 +237,7 @@ export default function ManageTasks () {
             {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
             {openDelete && <DeleteTask data={taskToDelete} close={closeDeleteModal}/>}
             {openDetails && <TaskDetails data={taskDetails} close={closeDetailsModal}/>}
+            {openDateFilterModal && <DateFilter close={(data)=>closeDateFilterModal(data)}/>}
         </>
     );
 };
