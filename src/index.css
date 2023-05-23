@@ -4,12 +4,12 @@
 
 .taskManager {
   position: absolute;
-  top: 0;
+  top: 60px;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: auto;
-  margin-top: 40px;
+  margin: 40px auto;
+  
   width: 800px;
   height: fit-content;
   

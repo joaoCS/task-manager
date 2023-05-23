@@ -1,0 +1,35 @@
+.tasksList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.tasksList h1 {
+  color: rgb(43, 57, 185);
+}
+
+.tasksList button {
+  display: flex;
+
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgb(43, 57, 185);
+  border: 1px solid rgb(43, 57, 185);
+  border-radius: 10px;
+  color: yellowgreen;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tasksList button:hover {
+  background-color: yellowgreen;
+  color: rgb(43, 57, 185);
+
+}

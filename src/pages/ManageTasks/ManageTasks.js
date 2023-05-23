@@ -19,6 +19,7 @@ import moment from "moment";
 import { useCookies } from "react-cookie";
 import "./menuStyle.css";
 import DateFilter from "../DateFilter/DateFilter";
+import EmptyTasksList from "../EmptyTasksList/EmptyTasksList";
 
 export default function ManageTasks () {
 
@@ -211,7 +212,7 @@ export default function ManageTasks () {
 
     return (
         <>
-           {cookies.access_token &&
+           {cookies.access_token && tasks.length > 0 && 
             <div className="taskManager">
                 <div className="taskManagerHeader">
                     <div className="menu" onClick={()=>setMenuFiltrarVisible(true)}>
@@ -278,6 +279,7 @@ export default function ManageTasks () {
                 </ul>
             </div>
             }
+            {tasks.length <= 0 && <EmptyTasksList openEdit={()=> openEditModal({})}/>}
             {openEdit && <EditTask data={taskToEdition} close={closeEditModal}/>}
             {openDelete && <DeleteTask data={taskToDelete} close={closeDeleteModal}/>}
             {openDetails && <TaskDetails data={taskDetails} close={closeDetailsModal}/>}
