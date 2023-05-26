@@ -19,6 +19,8 @@ export default function EmptyTasksList({ openEdit }){
     <div className="tasksList">
       <h1>Cadastre-se para criar tarefas!</h1>
       <Link to="cadastro">Cadastrar-se</Link>
+      ou
+      <Link to="login">Faça login</Link>
     </div>
   );
 }
