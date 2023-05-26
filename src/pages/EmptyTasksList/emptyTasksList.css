@@ -34,7 +34,15 @@
 
 }
 
-.tasksList a {
+.tasksList div h1 {
+  color: rgb(43, 57, 185);
+}
+
+.tasksList div {
+  color: rgb(43, 57, 185);
+}
+
+.tasksList div a {
   color: rgb(43, 57, 185);
   text-decoration: none;
   font-weight: bold;
@@ -44,7 +52,7 @@
   border-radius: 5px;
 }
 
-.tasksList a:hover {
+.tasksList div a:hover {
   background-color: rgb(43, 57, 185);
   color: yellowgreen;
 
