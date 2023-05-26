@@ -12,8 +12,7 @@ export default function ForgotPassword(){
         try {
            const response = await api.post("/auth/forgot-password/", { email });
 
-           console.log(response.data);
-           alert("Confira seu email!");
+           alert(response.data.message);
 
          }
          catch(err) {

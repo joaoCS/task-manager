@@ -33,3 +33,19 @@
   color: rgb(43, 57, 185);
 
 }
+
+.tasksList a {
+  color: rgb(43, 57, 185);
+  text-decoration: none;
+  font-weight: bold;
+  background-color: yellowgreen;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tasksList a:hover {
+  background-color: rgb(43, 57, 185);
+  color: yellowgreen;
+
+}
