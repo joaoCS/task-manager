@@ -56,6 +56,12 @@ export default function Navbar() {
 
     return (
         <>
+        { showEditCadastro && 
+            <EditCadastro 
+                close={()=>setShowEditCadastro(false)}
+            >
+            </EditCadastro>
+        }
         <div className="navbar">
             <span><Link to="/">Gerenciador de Tarefas</Link></span>
             
@@ -82,12 +88,7 @@ export default function Navbar() {
 
 
         </div>
-        { showEditCadastro && 
-            <EditCadastro 
-                close={()=>setShowEditCadastro(false)}
-            >
-            </EditCadastro>
-        }
+        
         </>
     );
 };
