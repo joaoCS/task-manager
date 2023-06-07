@@ -2,13 +2,10 @@
 
 Aplicativo para gerenciamento de tarefas feito em NodeJs, ReactJs, MongoDb, redux, MomentJs(para formatação de datas), DatePicker para captura das datas.
 
-Deploy no render.com. : https://lnkd.in/dyEr7T_Y
+Deploy no render.com : https://lnkd.in/dyEr7T_Y
 
-Repositórios github: 
-
-              Back-end: https://lnkd.in/dm967U4W
+ Back-end: https://lnkd.in/dm967U4W
                  
-              Front-end: https://lnkd.in/d-YatxsY
 É possível:
 
 Fazer CRUD de tarefas;
